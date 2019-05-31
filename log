@@ -1,0 +1,43 @@
+1-Both servers":Install openssh-server
+sudo yum -y install openssh-server
+
+2-Server1: Generate private/public rsa key pair
+ssh-keygen -t rsa
+
+3-Go to directory .ssh/
+cd .ssh/
+.ssh$ ls
+The files id_rsa(private key) and id_rsa.pub(public key) are created. 
+
+4-Change id_rsa.pub to authorized_keys.
+.ssh$ cp id_rsa.pub authorized_keys
+
+5-Change permissions:
+.ssh$ chmod 600 authorized_keys
+
+
+6-Go to home directory:
+.ssh$ cd 
+~$
+
+7-Copy your Public Key
+(ssh-copy-id username@remote_host_ip)
+~$ ssh-copy-id vagrant@192.168.1.8
+
+8-Server2:
+Go to .ssh directory
+.ssh$ ls
+authorized_keys file is created 
+
+9-Server1: Go to .ssh
+.ssh$ open id_rsa and copy the content.
+
+10-Server2: go to .ssh directory and paste the private key content on a file named id_rsa.
+.ssh$ vi id_rsa
+Paste the content and save.
+
+11-Change permissions:
+.ssh$ chmod 600 id_rsa
+
+12-Now you can log into the remote host without the remote account's password:
+server1 ~$ ssh server2
